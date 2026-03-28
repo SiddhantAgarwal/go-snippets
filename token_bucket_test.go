@@ -1,6 +1,8 @@
 package main
 
 import (
+	"sync"
+	"sync/atomic"
 	"testing"
 	"testing/synctest"
 	"time"
@@ -21,4 +23,24 @@ func TestTokenBucket(t *testing.T) {
 		time.Sleep(time.Second * 2)
 		assert.True(t, tb.Allow())
 	})
+}
+
+func TestTokenBucketParallel(t *testing.T) {
+	tb := NewTokenBucket(1, 2)
+	var (
+		allowedCount int64
+		wg           sync.WaitGroup
+	)
+
+	for range 10 {
+		wg.Go(func() {
+			if tb.Allow() {
+				atomic.AddInt64(&allowedCount, 1)
+			}
+		})
+	}
+
+	wg.Wait()
+
+	assert.Equal(t, int64(2), allowedCount)
 }
