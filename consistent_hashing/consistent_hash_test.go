@@ -7,6 +7,8 @@ import (
 )
 
 func TestConsistentHash(t *testing.T) {
+	t.Parallel()
+
 	ch := NewConsistentHash(3)
 	ch.Add("Server-A")
 	ch.Add("Server-B")
@@ -26,6 +28,8 @@ func TestConsistentHash(t *testing.T) {
 }
 
 func TestConsistentHash_Remove(t *testing.T) {
+	t.Parallel()
+
 	ch := NewConsistentHash(3)
 	ch.Add("Server-A")
 	ch.Add("Server-B")
