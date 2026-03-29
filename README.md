@@ -5,7 +5,7 @@ constructs and concepts implemented in go.
 
 Concepts
 * Rate Limiting
-  * [**Token Bucket**](token_bucket)
-  * [**Leaky Bucket**](leaky_bucket)
+  * [**Token Bucket**](rate_limiting/token_bucket)
+  * [**Leaky Bucket**](rate_limiting/leaky_bucket)
 * [**Consistent Hashing**](consistent_hashing) 
 * [**Feature Flags by bitmask**](feature_flags)
