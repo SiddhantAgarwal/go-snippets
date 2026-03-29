@@ -42,6 +42,23 @@ func (c *ConsistentHash) Add(nodeName string) {
 	sort.Sort(c.ring)
 }
 
+func (c *ConsistentHash) Remove(nodeName string) {
+	for i := range c.replicas {
+		vNodeName := nodeName + "#" + strconv.Itoa(i)
+		h := c.Hash(vNodeName)
+
+		idx := sort.Search(len(c.ring), func(i int) bool {
+			return c.ring[i] >= h
+		})
+
+		if idx < len(c.ring) && c.ring[idx] == h {
+			c.ring = append(c.ring[:idx], c.ring[idx+1:]...)
+		}
+
+		delete(c.nodes, h)
+	}
+}
+
 func (c *ConsistentHash) Get(key string) string {
 	if len(c.ring) == 0 {
 		return ""
