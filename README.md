@@ -7,3 +7,4 @@ Concepts
 * Rate Limiting
   * [**Token Bucket**](token_bucket)
   * [**Leaky Bucket**](leaky_bucket)
+* [**Consistent Hashing**](consistent_hashing) 
