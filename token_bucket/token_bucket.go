@@ -1,4 +1,4 @@
-package main
+package tokenbucket
 
 import (
 	"sync"
@@ -24,6 +24,7 @@ func (tb *TokenBucket) Allow() bool {
 	if tb.tokens > tb.capacity {
 		tb.tokens = tb.capacity
 	}
+
 	tb.lastRefilled = now
 
 	if tb.tokens >= 1.0 {
